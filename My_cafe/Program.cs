@@ -142,24 +142,30 @@ namespace MonksCafe
                 return;
             }
 
-            Console.WriteLine("Items:");
+            Console.WriteLine("{0,-8}{1,-25}{2,10}", "ItemNo", "Description", "Price");
+            Console.WriteLine("-----------------------------------------------");
 
             for (int i = 0; i < bill.Count; i++)
             {
-                Console.WriteLine((i + 1) + ". " +
-                                  bill.Items[i].Description +
-                                  " - " +
-                                  bill.Items[i].Price);
+                Console.WriteLine("{0,-8}{1,-25}${2,9:F2}",
+                    i + 1,
+                    bill.Items[i].Description,
+                    bill.Items[i].Price);
             }
+
+            Console.WriteLine();
 
             int number;
 
             while (true)
             {
-                Console.Write("\nEnter item number: ");
+                Console.Write("Enter item number (0 - cancel): ");
 
                 if (int.TryParse(Console.ReadLine(), out number))
                 {
+                    if (number == 0)
+                        return;
+
                     if (number >= 1 && number <= bill.Count)
                         break;
                 }
@@ -175,10 +181,10 @@ namespace MonksCafe
             }
 
             bill.Items[bill.Count - 1] = null;
-
             bill.Count--;
 
-            Console.WriteLine("Remove item was successful."); 
+            Console.WriteLine();
+            Console.WriteLine("Remove item was successful.");
         }
         static void AddTip()
         {
