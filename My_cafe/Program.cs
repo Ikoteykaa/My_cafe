@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace MonksCafe
 {
@@ -39,7 +40,7 @@ namespace MonksCafe
                         break;
 
                     case "6":
-                        Console.WriteLine("\nFunction is not implemented yet.");
+                        SaveBill();
                         break;
 
                     case "7":
@@ -276,6 +277,65 @@ namespace MonksCafe
             {
                 Console.WriteLine();
                 Console.WriteLine("Operation cancelled.");
+            }
+        }
+        static void SaveBill()
+        {
+            Console.Clear();
+
+            if (bill.Count == 0)
+            {
+                Console.WriteLine("Bill is empty.");
+                return;
+            }
+
+            string fileName;
+
+            while (true)
+            {
+                Console.Write("Enter filename (1-10 symbols): ");
+                fileName = Console.ReadLine();
+
+                if (fileName.Length >= 1 && fileName.Length <= 10)
+                    break;
+
+                Console.WriteLine("Incorrect filename.");
+            }
+
+            fileName += ".txt";
+
+            try
+            {
+                StreamWriter writer = new StreamWriter(fileName);
+
+                double sum = 0;
+
+                writer.WriteLine("===== BILL =====");
+                writer.WriteLine();
+
+                for (int i = 0; i < bill.Count; i++)
+                {
+                    writer.WriteLine(
+                        bill.Items[i].Description +
+                        " - " +
+                        bill.Items[i].Price.ToString("F2"));
+
+                    sum += bill.Items[i].Price;
+                }
+
+                writer.WriteLine();
+                writer.WriteLine("Subtotal: " + sum.ToString("F2"));
+                writer.WriteLine("Tip: " + bill.Tip.ToString("F2"));
+                writer.WriteLine("Total: " + (sum + bill.Tip).ToString("F2"));
+
+                writer.Close();
+
+                Console.WriteLine();
+                Console.WriteLine("Bill saved successfully.");
+            }
+            catch
+            {
+                Console.WriteLine("Error while saving file.");
             }
         }
     }
