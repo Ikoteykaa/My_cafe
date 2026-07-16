@@ -130,7 +130,7 @@ namespace MonksCafe
             bill.Count++;
 
             Console.WriteLine();
-            Console.WriteLine("Item added successfully.");
+            Console.WriteLine("Add item was successful.");
         }
         static void RemoveItem()
         {
@@ -178,7 +178,7 @@ namespace MonksCafe
 
             bill.Count--;
 
-            Console.WriteLine("\nItem removed successfully.");
+            Console.WriteLine("Remove item was successful."); 
         }
         static void AddTip()
         {
@@ -270,7 +270,7 @@ namespace MonksCafe
                 bill.Tip = 0;
 
                 Console.WriteLine();
-                Console.WriteLine("Bill cleared successfully.");
+                Console.WriteLine("All items have been cleared.");
             }
             else
             {
