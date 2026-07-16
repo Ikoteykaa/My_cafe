@@ -44,7 +44,7 @@ namespace MonksCafe
                         break;
 
                     case "7":
-                        Console.WriteLine("\nFunction is not implemented yet.");
+                        LoadBill();
                         break;
 
                     case "0":
@@ -336,6 +336,81 @@ namespace MonksCafe
             catch
             {
                 Console.WriteLine("Error while saving file.");
+            }
+        }
+        static void LoadBill()
+        {
+            Console.Clear();
+
+            string fileName;
+
+            while (true)
+            {
+                Console.Write("Enter filename (1-10 symbols): ");
+                fileName = Console.ReadLine();
+
+                if (fileName.Length >= 1 && fileName.Length <= 10)
+                    break;
+
+                Console.WriteLine("Incorrect filename.");
+            }
+
+            fileName += ".txt";
+
+            if (!File.Exists(fileName))
+            {
+                Console.WriteLine("File not found.");
+                return;
+            }
+
+            try
+            {
+                StreamReader reader = new StreamReader(fileName);
+
+
+                bill.Count = 0;
+                bill.Tip = 0;
+
+                string line;
+
+
+                reader.ReadLine();
+                reader.ReadLine();
+
+                while ((line = reader.ReadLine()) != null)
+                {
+                    if (line == "")
+                        break;
+
+                    string[] data = line.Split('-');
+
+                    Item item = new Item();
+
+                    item.Description = data[0].Trim();
+                    item.Price = double.Parse(data[1]);
+
+                    bill.Items[bill.Count] = item;
+                    bill.Count++;
+                }
+
+
+                reader.ReadLine();
+
+
+                line = reader.ReadLine();
+
+                string[] tip = line.Split(':');
+
+                bill.Tip = double.Parse(tip[1]);
+
+                reader.Close();
+
+                Console.WriteLine();
+                Console.WriteLine("Bill loaded successfully.");
+            }
+            catch
+            {
+                Console.WriteLine("Error while loading file.");
             }
         }
     }
