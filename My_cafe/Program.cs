@@ -70,7 +70,7 @@ namespace MonksCafe
             Console.Clear();
 
             Console.WriteLine("=================================");
-            Console.WriteLine("          Monk's Cafe");
+            Console.WriteLine("          koteykaa's Cafe");
             Console.WriteLine("=================================");
             Console.WriteLine("1. Add Item");
             Console.WriteLine("2. Remove Item");
