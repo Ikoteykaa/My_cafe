@@ -216,35 +216,34 @@ namespace MonksCafe
 
             if (bill.Count == 0)
             {
-                Console.WriteLine("Bill is empty.");
+                Console.WriteLine("There are no items in the bill to display.");
                 return;
             }
 
-            double sum = 0;
+            double netTotal = 0;
 
-            Console.WriteLine("=========== BILL ===========");
             Console.WriteLine();
-
-            Console.WriteLine("{0,-20}{1,10}", "Description", "Price");
-            Console.WriteLine("-------------------------------");
+            Console.WriteLine("{0,-25}{1,10}", "Description", "Price");
+            Console.WriteLine("------------------------- ----------");
 
             for (int i = 0; i < bill.Count; i++)
             {
-                Console.WriteLine("{0,-20}{1,10:F2}",
+                Console.WriteLine("{0,-25}${1,9:F2}",
                     bill.Items[i].Description,
                     bill.Items[i].Price);
 
-                sum += bill.Items[i].Price;
+                netTotal += bill.Items[i].Price;
             }
 
-            Console.WriteLine("-------------------------------");
+            Console.WriteLine("------------------------- ----------");
 
-            Console.WriteLine("{0,-20}{1,10:F2}", "Subtotal:", sum);
-            Console.WriteLine("{0,-20}{1,10:F2}", "Tip:", bill.Tip);
-            Console.WriteLine("-------------------------------");
-            Console.WriteLine("{0,-20}{1,10:F2}", "TOTAL:", sum + bill.Tip);
+            double gst = netTotal * 0.05;
+            double total = netTotal + gst + bill.Tip;
 
-            Console.WriteLine();
+            Console.WriteLine("{0,25} ${1,8:F2}", "Net Total", netTotal);
+            Console.WriteLine("{0,25} ${1,8:F2}", "Tip Amount", bill.Tip);
+            Console.WriteLine("{0,25} ${1,8:F2}", "GST Amount", gst);
+            Console.WriteLine("{0,25} ${1,8:F2}", "Total Amount", total);
         }
         static void ClearBill()
         {
