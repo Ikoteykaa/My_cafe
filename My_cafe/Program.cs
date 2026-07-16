@@ -196,25 +196,76 @@ namespace MonksCafe
                 return;
             }
 
-            double tip;
+            double sum = 0;
+
+            for (int i = 0; i < bill.Count; i++)
+            {
+                sum += bill.Items[i].Price;
+            }
+
+            Console.WriteLine("1. Tip Percentage");
+            Console.WriteLine("2. Tip Amount");
+            Console.WriteLine("3. No Tip");
+            Console.WriteLine();
+
+            string choice;
 
             while (true)
             {
-                Console.Write("Enter tip: ");
+                Console.Write("Choose option: ");
+                choice = Console.ReadLine();
 
-                if (double.TryParse(Console.ReadLine(), out tip))
-                {
-                    if (tip >= 0)
-                        break;
-                }
+                if (choice == "1" || choice == "2" || choice == "3")
+                    break;
 
-                Console.WriteLine("Incorrect tip.");
+                Console.WriteLine("Incorrect choice.");
             }
 
-            bill.Tip = tip;
+            if (choice == "1")
+            {
+                double percent;
+
+                while (true)
+                {
+                    Console.Write("Enter percentage: ");
+
+                    if (double.TryParse(Console.ReadLine(), out percent))
+                    {
+                        if (percent >= 0)
+                            break;
+                    }
+
+                    Console.WriteLine("Incorrect percentage.");
+                }
+
+                bill.Tip = sum * percent / 100;
+            }
+            else if (choice == "2")
+            {
+                double tip;
+
+                while (true)
+                {
+                    Console.Write("Enter tip amount: ");
+
+                    if (double.TryParse(Console.ReadLine(), out tip))
+                    {
+                        if (tip >= 0)
+                            break;
+                    }
+
+                    Console.WriteLine("Incorrect tip.");
+                }
+
+                bill.Tip = tip;
+            }
+            else
+            {
+                bill.Tip = 0;
+            }
 
             Console.WriteLine();
-            Console.WriteLine("Tip added successfully.");
+            Console.WriteLine("Tip updated successfully.");
         }
         static void DisplayBill()
         {
