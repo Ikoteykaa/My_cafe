@@ -23,7 +23,7 @@ namespace MonksCafe
                         break;
 
                     case "2":
-                        Console.WriteLine("\nFunction is not implemented yet.");
+                        RemoveItem();
                         break;
 
                     case "3":
@@ -130,6 +130,54 @@ namespace MonksCafe
 
             Console.WriteLine();
             Console.WriteLine("Item added successfully.");
+        }
+        static void RemoveItem()
+        {
+            Console.Clear();
+
+            if (bill.Count == 0)
+            {
+                Console.WriteLine("Bill is empty.");
+                return;
+            }
+
+            Console.WriteLine("Items:");
+
+            for (int i = 0; i < bill.Count; i++)
+            {
+                Console.WriteLine((i + 1) + ". " +
+                                  bill.Items[i].Description +
+                                  " - " +
+                                  bill.Items[i].Price);
+            }
+
+            int number;
+
+            while (true)
+            {
+                Console.Write("\nEnter item number: ");
+
+                if (int.TryParse(Console.ReadLine(), out number))
+                {
+                    if (number >= 1 && number <= bill.Count)
+                        break;
+                }
+
+                Console.WriteLine("Incorrect number.");
+            }
+
+            number--;
+
+            for (int i = number; i < bill.Count - 1; i++)
+            {
+                bill.Items[i] = bill.Items[i + 1];
+            }
+
+            bill.Items[bill.Count - 1] = null;
+
+            bill.Count--;
+
+            Console.WriteLine("\nItem removed successfully.");
         }
     }
 }
