@@ -35,7 +35,7 @@ namespace MonksCafe
                         break;
 
                     case "5":
-                        Console.WriteLine("\nFunction is not implemented yet.");
+                        ClearBill();
                         break;
 
                     case "6":
@@ -244,6 +244,39 @@ namespace MonksCafe
             Console.WriteLine("{0,-20}{1,10:F2}", "TOTAL:", sum + bill.Tip);
 
             Console.WriteLine();
+        }
+        static void ClearBill()
+        {
+            Console.Clear();
+
+            if (bill.Count == 0)
+            {
+                Console.WriteLine("Bill is already empty.");
+                return;
+            }
+
+            Console.Write("Are you sure? (Y/N): ");
+
+            string answer = Console.ReadLine();
+
+            if (answer.ToUpper() == "Y")
+            {
+                for (int i = 0; i < bill.Count; i++)
+                {
+                    bill.Items[i] = null;
+                }
+
+                bill.Count = 0;
+                bill.Tip = 0;
+
+                Console.WriteLine();
+                Console.WriteLine("Bill cleared successfully.");
+            }
+            else
+            {
+                Console.WriteLine();
+                Console.WriteLine("Operation cancelled.");
+            }
         }
     }
 }
