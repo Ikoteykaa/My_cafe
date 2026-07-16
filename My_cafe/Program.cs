@@ -27,7 +27,7 @@ namespace MonksCafe
                         break;
 
                     case "3":
-                        Console.WriteLine("\nFunction is not implemented yet.");
+                        AddTip();
                         break;
 
                     case "4":
@@ -178,6 +178,36 @@ namespace MonksCafe
             bill.Count--;
 
             Console.WriteLine("\nItem removed successfully.");
+        }
+        static void AddTip()
+        {
+            Console.Clear();
+
+            if (bill.Count == 0)
+            {
+                Console.WriteLine("Bill is empty.");
+                return;
+            }
+
+            double tip;
+
+            while (true)
+            {
+                Console.Write("Enter tip: ");
+
+                if (double.TryParse(Console.ReadLine(), out tip))
+                {
+                    if (tip >= 0)
+                        break;
+                }
+
+                Console.WriteLine("Incorrect tip.");
+            }
+
+            bill.Tip = tip;
+
+            Console.WriteLine();
+            Console.WriteLine("Tip added successfully.");
         }
     }
 }
