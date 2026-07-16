@@ -97,10 +97,12 @@ namespace MonksCafe
             while (true)
             {
                 Console.Write("Description (3-20): ");
-                description = Console.ReadLine();
+                description = Console.ReadLine().Trim();
 
                 if (description.Length >= 3 && description.Length <= 20)
+                {
                     break;
+                }
 
                 Console.WriteLine("Incorrect description.");
             }
@@ -350,10 +352,26 @@ namespace MonksCafe
             while (true)
             {
                 Console.Write("Enter filename (1-10 symbols): ");
-                fileName = Console.ReadLine();
+                fileName = Console.ReadLine().Trim();
+
+                char[] forbidden = { '\\', '/', ':', '*', '?', '"', '<', '>', '|' };
+
+                bool correct = true;
 
                 if (fileName.Length >= 1 && fileName.Length <= 10)
-                    break;
+                {
+                    for (int i = 0; i < forbidden.Length; i++)
+                    {
+                        if (fileName.Contains(forbidden[i]))
+                        {
+                            correct = false;
+                            break;
+                        }
+                    }
+
+                    if (correct)
+                        break;
+                }
 
                 Console.WriteLine("Incorrect filename.");
             }
