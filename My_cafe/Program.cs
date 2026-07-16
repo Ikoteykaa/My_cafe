@@ -31,7 +31,7 @@ namespace MonksCafe
                         break;
 
                     case "4":
-                        Console.WriteLine("\nFunction is not implemented yet.");
+                        DisplayBill();
                         break;
 
                     case "5":
@@ -208,6 +208,42 @@ namespace MonksCafe
 
             Console.WriteLine();
             Console.WriteLine("Tip added successfully.");
+        }
+        static void DisplayBill()
+        {
+            Console.Clear();
+
+            if (bill.Count == 0)
+            {
+                Console.WriteLine("Bill is empty.");
+                return;
+            }
+
+            double sum = 0;
+
+            Console.WriteLine("=========== BILL ===========");
+            Console.WriteLine();
+
+            Console.WriteLine("{0,-20}{1,10}", "Description", "Price");
+            Console.WriteLine("-------------------------------");
+
+            for (int i = 0; i < bill.Count; i++)
+            {
+                Console.WriteLine("{0,-20}{1,10:F2}",
+                    bill.Items[i].Description,
+                    bill.Items[i].Price);
+
+                sum += bill.Items[i].Price;
+            }
+
+            Console.WriteLine("-------------------------------");
+
+            Console.WriteLine("{0,-20}{1,10:F2}", "Subtotal:", sum);
+            Console.WriteLine("{0,-20}{1,10:F2}", "Tip:", bill.Tip);
+            Console.WriteLine("-------------------------------");
+            Console.WriteLine("{0,-20}{1,10:F2}", "TOTAL:", sum + bill.Tip);
+
+            Console.WriteLine();
         }
     }
 }
